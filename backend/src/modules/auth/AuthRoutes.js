@@ -1,7 +1,7 @@
 import express from "express";
 import * as AuthController from "./AuthController.js";
 import * as AuthSchema from "./AuthValidation.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
 
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.post(
   "/signup",
-  ValidateSchema(AuthSchema.SignupSchema),
+  ValidateAndSanitize(AuthSchema.SignupSchema),
   AuthController.SignupController,
 );
 
@@ -22,7 +22,7 @@ router.post(
  */
 router.post(
   "/google",
-  ValidateSchema(AuthSchema.GoogleAuthSchema),
+  ValidateAndSanitize(AuthSchema.GoogleAuthSchema),
   AuthController.GoogleAuthController,
 );
 
@@ -31,7 +31,7 @@ router.post(
  */
 router.post(
   "/login",
-  ValidateSchema(AuthSchema.LoginSchema),
+  ValidateAndSanitize(AuthSchema.LoginSchema),
   AuthController.LoginController,
 );
 

@@ -2,7 +2,7 @@ import express from "express";
 import * as AdminController from "./AdminController.js";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
 import { RoleMiddleware } from "../../middlewares/RoleMiddleware.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import * as AdminSchemaValidation from "./AdminValidation.js";
 import { ROLES } from "../../constants/constants.js";
 
@@ -18,7 +18,7 @@ router.patch(
   "/users/:userId/deactivate",
   AuthMiddleware,
   RoleMiddleware(ROLES.Admin),
-  ValidateSchema(AdminSchemaValidation.UserStatusSchema, "params"), // validate userId param
+  ValidateAndSanitize(AdminSchemaValidation.UserStatusSchema, "params"), // validate userId param
   AdminController.ToggleUserStatusController,
 );
 
@@ -31,7 +31,7 @@ router.delete(
   "/users/:userId",
   AuthMiddleware,
   RoleMiddleware(ROLES.Admin),
-  ValidateSchema(AdminSchemaValidation.UserStatusSchema, "params"), // validate userId param
+  ValidateAndSanitize(AdminSchemaValidation.UserStatusSchema, "params"), // validate userId param
   AdminController.DeleteUserController,
 );
 export default router;

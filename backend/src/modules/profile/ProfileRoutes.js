@@ -1,7 +1,7 @@
 import express from "express";
 import env from "../../config/env.js";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import * as ProfileValidation from "./ProfileValidation.js";
 import * as ProfileController from "./ProfileController.js";
 import {
@@ -25,7 +25,7 @@ const conditionalUpload = (req, res, next) => {
 // Conditional validation middleware
 const conditionalValidation = (req, res, next) => {
   if (env.USE_CDN !== "false") {
-    return ValidateSchema(ProfileValidation.PresignedUrlSchema)(req, res, next);
+    return ValidateAndSanitize(ProfileValidation.PresignedUrlSchema)(req, res, next);
   }
   console.log("conditionalValidation done");
   next();
@@ -48,7 +48,7 @@ router.post(
 router.put(
   "/",
   AuthMiddleware,
-  ValidateSchema(ProfileValidation.UpdateProfileSchema),
+  ValidateAndSanitize(ProfileValidation.UpdateProfileSchema),
   ProfileController.UpdateProfileController,
 );
 

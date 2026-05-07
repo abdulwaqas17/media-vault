@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as SessionController from "./SessionController.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
 import * as SessionsSchema from "./SessionValidation.js";
 import { ROLES } from "../../constants/constants.js";
@@ -17,7 +17,7 @@ router.get(
   "/user/:userId",
   AuthMiddleware,
   RoleMiddleware(ROLES.Admin),
-  ValidateSchema(SessionsSchema.GetUserSessionsSchema, "params"),
+  ValidateAndSanitize(SessionsSchema.GetUserSessionsSchema, "params"),
   SessionController.GetUserSessionsController,
 );
 
@@ -28,7 +28,7 @@ router.patch(
   "/user/:userId/:sessionId/revoke",
   AuthMiddleware,
   RoleMiddleware(ROLES.Admin),
-  ValidateSchema(SessionsSchema.RevokeSessionSchema, "params"),
+  ValidateAndSanitize(SessionsSchema.RevokeSessionSchema, "params"),
   SessionController.RevokeSessionController,
 );
 
@@ -39,7 +39,7 @@ router.patch(
   "/user/:userId/revoke-all",
   AuthMiddleware,
   RoleMiddleware(ROLES.Admin),
-  ValidateSchema(SessionsSchema.RevokeAllSessionsSchema, "params"),
+  ValidateAndSanitize(SessionsSchema.RevokeAllSessionsSchema, "params"),
   SessionController.RevokeAllSessionsController,
 );
 

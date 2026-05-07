@@ -53,7 +53,10 @@ export const UpdateProfileSchema = Joi.object({
     "any.required": "company_name is required",
     "string.empty": "company_name cannot be an empty field"
   }),
-  password: Joi.string().optional(),
+  password: Joi.string().min(6).max(50).optional().messages({
+    "string.min": "password must be at least 6 characters long",
+    "string.max": "password cannot exceed 50 characters"
+  }),
   media_assets: Joi.array().items(
     Joi.object({
       asset_type: Joi.string().valid(...allowedAssetTypes).required(),

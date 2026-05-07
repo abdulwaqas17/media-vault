@@ -143,6 +143,7 @@ model users {
   provider           auth_provider
   status             user_status   @default(ACTIVE)
   role_id   String
+  isProfileCompleted Boolean @default(false)
 
 
   created_at         DateTime      @default(now())
@@ -347,7 +348,7 @@ import { ApiError } from "../utils/ApiError";
 /**
  * Middleware to validate request data using Joi schemas
  */
-export const ValidateSchema = (schema, property = "body") => {
+export const ValidateAndSanitize = (schema, property = "body") => {
   return (req, res, next) => {
     const joiRes = schema.validate(req[property]);
 
@@ -377,7 +378,7 @@ And call in routes file like this
 
 4)router.post(
   "/google",
-  ValidateSchema(AuthSchema.GoogleAuthSchema),
+  ValidateAndSanitize(AuthSchema.GoogleAuthSchema),
   AuthController.GoogleAuthController,
 );
 
@@ -453,7 +454,7 @@ jis trhn industry m kam hota h usi trhn kam krna
 
 import express from "express";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import * as ProfileValidation from "./ProfileValidation.js";
 import * as ProfileController from "./ProfileController.js";
 import { UploadMiddleware, UploadMemoryMiddleware } from "../../middlewares/UploadMiddleware.js";
@@ -472,7 +473,7 @@ const conditionalUpload = (req, res, next) => {
 // Conditional validation middleware
 const conditionalValidation = (req, res, next) => {
   if (process.env.USE_CDN !== "false") {
-    return ValidateSchema(ProfileValidation.PresignedUrlSchema)(req, res, next);
+    return ValidateAndSanitize(ProfileValidation.PresignedUrlSchema)(req, res, next);
   }
   console.log("conditionalValidation done");
   next();
@@ -557,7 +558,7 @@ const conditionalUpload = (req, res, next) => {
 // Conditional validation middleware
 const conditionalValidation = (req, res, next) => {
   if (process.env.USE_CDN !== "false") {
-    return ValidateSchema(ProfileValidation.PresignedUrlSchema)(req, res, next);
+    return ValidateAndSanitize(ProfileValidation.PresignedUrlSchema)(req, res, next);
   }
   console.log("conditionalValidation done");
   next();

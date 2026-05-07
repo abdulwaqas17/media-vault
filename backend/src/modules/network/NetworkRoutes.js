@@ -1,6 +1,6 @@
 import express from "express";
 import * as NetworkController from "./NetworkController.js";
-import { ValidateSchema } from "../../middlewares/ValidateMiddleware.js";
+import { ValidateAndSanitize } from "../../middlewares/ValidateMiddleware.js";
 import { NetworkListSchema } from "./NetworkValidation.js";
 import { AuthMiddleware } from "../../middlewares/AuthMiddleware.js";
 
@@ -13,7 +13,7 @@ const router = express.Router();
 router.get(
   "/",
   AuthMiddleware,
-  ValidateSchema(NetworkListSchema, "query"),
+  ValidateAndSanitize(NetworkListSchema, "query"),
   NetworkController.GetNetworkUsersController
 );
 

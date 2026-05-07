@@ -1,23 +1,30 @@
 import { ApiError } from "../utils/ApiError.js";
+import { SanitizeObject } from "../utils/sanitizer.js";
 
 /**
- * Middleware to validate request data using Joi schemas
- * @param {Joi.Schema} schema - The Joi schema to validate against
- * @param {string} property - The request property to validate (default: "body")
+ * Middleware to validate AND sanitize request data using Joi schemas
+ * Validation happens first, then sanitization
  */
-export const ValidateSchema = (schema, property = "body") => {
+export const ValidateAndSanitize = (schema, property = "body") => {
   return (req, res, next) => {
-    console.log(" validateSchema");
-    const joiRes = schema.validate(req[property]);
+    // Step 1: Validate first
+    const validationResult = schema.validate(req[property], {
+      abortEarly: false, // show all validation errors, not just the first one
+      stripUnknown: true, // remove unknown fields that are not defined in the schema
+    });
 
-    const { error } = joiRes;
-
-    console.log("error ===========>", error);
+    const { error, value } = validationResult;
 
     if (error) {
-      throw new ApiError(400, error.details[0].message);
+      return next(new ApiError(400, error.details[0].message));
     }
 
+    // Step 2: Sanitize the validated data
+    const sanitizedData = SanitizeObject(value);
+    
+    // Step 3: Replace request property with sanitized data
+    req[property] = sanitizedData;
+    
     next();
   };
 };
