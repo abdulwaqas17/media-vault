@@ -1,5 +1,9 @@
 import xss from "xss";
 
+const EXCLUDED_FIELDS = [
+  "password"
+];
+
 /**
  * Sanitize a string by escaping HTML characters and removing XSS vectors
  */
@@ -16,7 +20,7 @@ export const SanitizeObject = (obj) => {
 
   if (Array.isArray(obj)) {
     return obj.map((item) => {
-      if (typeof item === "string") {
+      if (typeof item === "string") {   
         return SanitizeString(item);
       }
 
@@ -26,7 +30,9 @@ export const SanitizeObject = (obj) => {
 
   const sanitized = {};
   for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === "string") {
+    if (EXCLUDED_FIELDS.includes(key)) {
+      sanitized[key] = value;
+    } else if (typeof value === "string") {
       sanitized[key] = SanitizeString(value);
     } else if (typeof value === "object" && value !== null) {
       sanitized[key] = SanitizeObject(value);

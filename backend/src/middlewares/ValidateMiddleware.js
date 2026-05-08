@@ -12,7 +12,7 @@ export const ValidateAndSanitize = (schema, property = "body") => {
       abortEarly: false, // show all validation errors, not just the first one
       stripUnknown: true, // remove unknown fields that are not defined in the schema
     });
-
+    
     const { error, value } = validationResult;
 
     if (error) {
@@ -21,7 +21,7 @@ export const ValidateAndSanitize = (schema, property = "body") => {
 
     // Step 2: Sanitize the validated data
     const sanitizedData = SanitizeObject(value);
-    
+
     // Step 3: Replace request property with sanitized data
     req[property] = sanitizedData;
     

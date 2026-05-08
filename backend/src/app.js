@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import { ApiError } from "./utils/ApiError.js";
 import { GlobalErrorHandler } from "./middlewares/ErrorMiddleware.js";
+import { RateLimiter } from "./config/rateLimit.js";
 
 const app = express();
 
@@ -20,6 +21,9 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Global rate limiter - sab APIs pe lagu
+app.use('/api', RateLimiter);
 
 // Load YAML
 const swaggerDocument = YAML.load("./src/swagger/api-docs.yaml");

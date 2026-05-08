@@ -7,6 +7,7 @@ import sessionRoutes from "../modules/session/SessionRoutes.js";
 import profileRoutes from "../modules/profile/ProfileRoutes.js";
 import adminRoutes from "../modules/admin/AdminRoutes.js"; 
 import networkRoutes from "../modules/network/NetworkRoutes.js"; 
+import { AdminRateLimiter, AuthRateLimiter, SearchRateLimiter } from "../config/rateLimit.js";
 
 const router = Router();
 
@@ -16,10 +17,10 @@ router.get("/health", (req, res) => {
 });
 
 // Module Routers
-router.use("/auth", authRoutes);
+router.use("/auth",AuthRateLimiter, authRoutes);
 router.use("/session", sessionRoutes);
 router.use("/profile", profileRoutes);
-router.use("/admin", adminRoutes);
-router.use("/network", networkRoutes);
+router.use("/admin", AdminRateLimiter, adminRoutes);
+router.use("/network", SearchRateLimiter, networkRoutes);
 
 export default router;
