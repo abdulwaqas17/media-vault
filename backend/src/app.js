@@ -8,6 +8,7 @@ import YAML from "yamljs";
 import { ApiError } from "./utils/ApiError.js";
 import { GlobalErrorHandler } from "./middlewares/ErrorMiddleware.js";
 import { RateLimiter } from "./config/rateLimit.js";
+import { ScheduleExpiredSessionCleanup } from "./jobs/SessionsCleanupJob.js";
 
 const app = express();
 
@@ -33,6 +34,9 @@ app.use("/uploads", express.static("uploads"));
 
 // Swagger UI route
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Start the cron job for session cleanup
+ScheduleExpiredSessionCleanup(); 
 
 // API routes
 app.use("/api", routes);

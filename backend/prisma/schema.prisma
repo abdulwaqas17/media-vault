@@ -107,6 +107,8 @@ model sessions {
 
   @@index([user_id])
   @@index([refresh_token])
+  @@index([expires_at])
+  @@index([is_active])
 }
 
 //
