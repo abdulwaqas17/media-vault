@@ -43,3 +43,82 @@
 {"level":"info","message":"Cron Job Started: Deleting expired sessions","timestamp":"2026-05-11T04:56:00.019Z"}
 {"level":"info","message":"Cron Job Completed: Deleted 0 sessions in 0.002 seconds","timestamp":"2026-05-11T04:56:00.021Z"}
 {"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-11T04:56:23.460Z"}
+{"level":"info","message":"Cron Job Started: Deleting expired sessions","timestamp":"2026-05-11T05:00:00.023Z"}
+{"level":"info","message":"Cron Job Completed: Deleted 0 sessions in 0.092 seconds","timestamp":"2026-05-11T05:00:00.116Z"}
+{"level":"info","message":"Cron Job Started: Deleting expired sessions","timestamp":"2026-05-11T06:00:00.200Z"}
+{"level":"info","message":"Cron Job Completed: Deleted 0 sessions in 0.181 seconds","timestamp":"2026-05-11T06:00:00.394Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:05:30.060Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:27.328Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:31.809Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:35.813Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:39.266Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:42.086Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:51.875Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:10:58.062Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:11:01.095Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:11:24.401Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:11:52.880Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:12:18.248Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:12:55.964Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:14:49.931Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:15:04.168Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:15:10.914Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:15:20.922Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:16:47.756Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:21:59.964Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:22:21.332Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:22:42.778Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:22:46.176Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:22:54.031Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:26:24.302Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:26:38.428Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:26:49.696Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:29:05.265Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:31:11.586Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:32:13.037Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:32:24.386Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:32:37.013Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:33:00.236Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:41:59.533Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:43:45.965Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:44:16.243Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T05:45:57.649Z"}
+{"level":"info","message":"Cron Job Started: Deleting expired sessions","timestamp":"2026-05-12T06:00:00.041Z"}
+{"clientVersion":"6.19.2","code":"P2021","level":"error","message":"Cron Job Error: Failed to delete expired sessions \nInvalid `prisma.sessions.deleteMany()` invocation:\n\n\nThe table `public.sessions` does not exist in the current database.","meta":{"modelName":"sessions","table":"public.sessions"},"name":"PrismaClientKnownRequestError","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.sessions.deleteMany()` invocation:\n\n\nThe table `public.sessions` does not exist in the current database.\n    at ei.handleRequestError (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:7268)\n    at ei.handleAndLogRequestError (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6593)\n    at ei.request (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6300)\n    at async a (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:130:9551)\n    at async DeleteExpiredSessions (file:///D:/Web%20and%20App%20Development/Backend_Intern/media_vault/backend/src/utils/CronJobUtils.js:14:20)\n    at async file:///D:/Web%20and%20App%20Development/Backend_Intern/media_vault/backend/src/jobs/SessionsCleanupJob.js:18:28\n    at async Timeout._onTimeout (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\node-cron\\dist\\esm\\scheduler\\runner.js:70:44)","timestamp":"2026-05-12T06:00:00.371Z"}
+{"clientVersion":"6.19.2","code":"P2021","level":"error","message":"Cron Job Failed: Session cleanup error \nInvalid `prisma.sessions.deleteMany()` invocation:\n\n\nThe table `public.sessions` does not exist in the current database.","meta":{"modelName":"sessions","table":"public.sessions"},"name":"PrismaClientKnownRequestError","stack":"PrismaClientKnownRequestError: \nInvalid `prisma.sessions.deleteMany()` invocation:\n\n\nThe table `public.sessions` does not exist in the current database.\n    at ei.handleRequestError (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:7268)\n    at ei.handleAndLogRequestError (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6593)\n    at ei.request (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6300)\n    at async a (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\@prisma\\client\\runtime\\library.js:130:9551)\n    at async DeleteExpiredSessions (file:///D:/Web%20and%20App%20Development/Backend_Intern/media_vault/backend/src/utils/CronJobUtils.js:14:20)\n    at async file:///D:/Web%20and%20App%20Development/Backend_Intern/media_vault/backend/src/jobs/SessionsCleanupJob.js:18:28\n    at async Timeout._onTimeout (D:\\Web and App Development\\Backend_Intern\\media_vault\\backend\\node_modules\\node-cron\\dist\\esm\\scheduler\\runner.js:70:44)","timestamp":"2026-05-12T06:00:00.372Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:12:29.299Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:12:31.281Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:12:37.765Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:18:48.515Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:18:54.350Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:19:02.847Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:19:29.318Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:19:31.039Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:19:37.339Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:20:11.015Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T06:58:32.139Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T07:49:55.710Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T07:54:28.343Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T07:58:23.669Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T07:58:29.336Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T07:59:07.282Z"}
+{"level":"info","message":"Cron Job Started: Deleting expired sessions","timestamp":"2026-05-12T08:00:00.060Z"}
+{"level":"info","message":"Cron Job Completed: Deleted 0 sessions in 0.369 seconds","timestamp":"2026-05-12T08:00:00.431Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:00:22.117Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:00:24.876Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:00:37.377Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:00:47.918Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:01:09.969Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:01:34.549Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:05:49.694Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:04.596Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:07.571Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:11.910Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:17.598Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:20.332Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:06:53.546Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:07:00.988Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:10:53.381Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:11:00.339Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:21:27.634Z"}
+{"level":"info","message":"Cron Job Scheduled: Expired session cleanup will run every hour","timestamp":"2026-05-12T08:24:13.144Z"}

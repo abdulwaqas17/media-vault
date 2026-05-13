@@ -4,7 +4,8 @@ swagger for api doc ✅
 s3,cdn ✅
 joi and sanitization ✅
 rate limitig ✅
-cron job for old sessions delete
+code speed and reuseability
+cron job for old sessions delete ✅
 unit testing
 deployement on ec2
 
@@ -12,6 +13,7 @@ Use rtk or redux
 Debounce search
 Bottom scroll api call
 Hooks
+React Query
 
 
 Todos :-
@@ -23,25 +25,3 @@ frontend
 
 
 
-
-
-
-
-
-############# Code Speed Improve ##############
-Unnecessary re-renders avoid karo (React.memo, useMemo, useCallback)
-API calls ko optimize karo (debouncing / throttling use karo)
-Database queries ko optimize karo (indexes lagao)
-WebSocket events ko throttle karo (mouse move jese events)
-Large components ko chhote components me break karo
-Lazy loading use karo (pages/components load on demand)
-Duplicate API calls avoid karo
-Efficient state management use karo (Zustand/Redux properly)
-
-############## Code Readability Improve ################
-Meaningful variable names use karo
-Folder structure clean rakho (components, hooks, services, utils)
-Reusable functions/components banao
-Unnecessary comments mat likho, sirf important logic explain karo
-Consistent naming convention follow karo (camelCase, PascalCase)
-Duplicate code avoid karo (DRY principle)

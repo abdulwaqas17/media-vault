@@ -42,3 +42,24 @@ npx prisma db seed
     "prisma:format": "prisma format"
   }
 }
+
+
+
+
+
+## PostgreSQL Commands
+
+# PostgreSQL mein login
+psql -U postgres
+
+# Agar password hai to:
+# psql -U postgres -W
+
+# Database create karo
+CREATE DATABASE media_vault_test;
+
+# Check karo
+\l
+
+# Exit
+\q
