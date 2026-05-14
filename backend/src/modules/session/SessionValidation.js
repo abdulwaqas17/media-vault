@@ -6,6 +6,7 @@ import Joi from "joi";
 export const GetUserSessionsSchema = Joi.object({
   userId: Joi.string().required().messages({
     "any.required": "User id is required",
+    "string.empty": "User id is required",
   }),
 });
 
@@ -15,9 +16,11 @@ export const GetUserSessionsSchema = Joi.object({
 export const RevokeSessionSchema = Joi.object({
   userId: Joi.string().required().messages({
     "any.required": "User id is required",
+    "string.empty": "User id is required",
   }),
   sessionId: Joi.string().required().messages({
     "any.required": "Session id is required",
+    "string.empty": "Session id is required",
   }),
 });
 
@@ -27,5 +30,6 @@ export const RevokeSessionSchema = Joi.object({
 export const RevokeAllSessionsSchema = Joi.object({
   userId: Joi.string().required().messages({
     "any.required": "User id is required",
+    "string.empty": "User id is required",
   }),
 });

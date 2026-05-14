@@ -1,64 +1,156 @@
-import { LoginSchema, SignupSchema } from "../../../src/modules/auth/AuthValidation";
+import {
+  LoginSchema,
+  SignupSchema,
+  GoogleAuthSchema
+} from "../../../src/modules/auth/AuthValidation";
 
-
-describe('Auth Validation Schemas', () => {
-  
-  describe('SignupSchema', () => {
-    it('should validate correct signup data', () => {
-      const validData = {
-        email: 'test@example.com',
-        password: 'Password123',
-        full_name: 'Test User'
-      };
-      
-      const { error } = SignupSchema.validate(validData);
+describe("Auth Validation Schemas", () => {
+  // ============================================================
+  // SIGNUP SCHEMA
+  // ============================================================
+  describe("SignupSchema", () => {
+    // 1. Happy path
+    it("should validate correct signup data", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Test User",
+        email: "test@example.com",
+        password: "Password123",
+      });
       expect(error).toBeUndefined();
     });
 
-    it('should reject invalid email', () => {
-      const invalidData = {
-        email: 'not-an-email',
-        password: 'Password123',
-        full_name: 'Test User'
-      };
-      
-      const { error } = SignupSchema.validate(invalidData);
-      expect(error).toBeDefined();
-      expect(error.message).toContain('Email');
+    // 2-4. Full name tests
+    it("should reject missing full_name", () => {
+      const { error } = SignupSchema.validate({
+        email: "test@example.com",
+        password: "Password123",
+      });
+      expect(error.message).toContain("Full name is required");
     });
 
-    it('should reject short password', () => {
-      const invalidData = {
-        email: 'test@example.com',
-        password: 'short',
-        full_name: 'Test User'
-      };
-      
-      const { error } = SignupSchema.validate(invalidData);
-      expect(error).toBeDefined();
+    it("should reject short full_name (min 3)", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Jo",
+        email: "test@example.com",
+        password: "Password123",
+      });
+      expect(error.message).toContain("at least 3 characters");
     });
 
-    it('should reject missing full_name', () => {
-      const invalidData = {
-        email: 'test@example.com',
-        password: 'Password123'
-      };
-      
-      const { error } = SignupSchema.validate(invalidData);
-      expect(error).toBeDefined();
+    it("should reject long full_name (max 30)", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "A".repeat(31),
+        email: "test@example.com",
+        password: "Password123",
+      });
+      expect(error.message).toContain("maximum 30 characters");
+    });
+
+    // 5-6. Email tests
+    it("should reject missing email", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Test User",
+        password: "Password123",
+      });
+      expect(error.message).toContain("Email is required");
+    });
+
+    it("should reject invalid email format", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Test User",
+        email: "not-an-email",
+        password: "Password123",
+      });
+      expect(error.message).toContain("Email must be valid");
+    });
+
+    // 7-8. Password tests
+    it("should reject missing password", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Test User",
+        email: "test@example.com",
+      });
+      expect(error.message).toContain("Password is required");
+    });
+
+    it("should reject short password (min 6)", () => {
+      const { error } = SignupSchema.validate({
+        full_name: "Test User",
+        email: "test@example.com",
+        password: "12345",
+      });
+      expect(error.message).toContain("at least 6 characters");
     });
   });
 
-//   describe('LoginSchema', () => {
-//     it('should validate correct login data', () => {
-//       const validData = {
-//         email: 'test@example.com',
-//         password: 'Password123'
-//       };
-      
-//       const { error } = LoginSchema.validate(validData);
-//       expect(error).toBeUndefined();
-//     });
+  // ============================================================
+  // LOGIN SCHEMA
+  // ============================================================
+  describe("LoginSchema", () => {
+    it("should validate correct login data", () => {
+      const { error } = LoginSchema.validate({
+        email: "test@example.com",
+        password: "Password123",
+      });
+      expect(error).toBeUndefined();
+    });
 
-//   });
+    it("should reject invalid email", () => {
+      const { error } = LoginSchema.validate({
+        email: "not-an-email",
+        password: "Password123",
+      });
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Email must be valid");
+    });
+
+    it("should reject missing email", () => {
+      const { error } = LoginSchema.validate({
+        password: "Password123",
+      });
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Email is required");
+    });
+
+    it("should reject short password", () => {
+      const { error } = LoginSchema.validate({
+        email: "test@example.com",
+        password: "12345",
+      });
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Password should be at least 6 characters");
+    });
+
+    it("should reject missing password", () => {
+      const { error } = LoginSchema.validate({
+        email: "test@example.com",
+      });
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Password is required");
+    });
+  });
+
+  // ============================================================
+  // GOOGLE AUTH SCHEMA
+  // ============================================================
+  describe("GoogleAuthSchema", () => {
+    it("should validate correct Google auth data", () => {
+      const { error } = GoogleAuthSchema.validate({
+        idToken: "google_token_123",
+      });
+      expect(error).toBeUndefined();
+    });
+
+    it("should reject missing idToken", () => {
+      const { error } = GoogleAuthSchema.validate({});
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Google idToken is required");
+    });
+
+    it("should reject empty idToken", () => {
+      const { error } = GoogleAuthSchema.validate({ idToken: "" });
+      expect(error).toBeDefined();
+      expect(error.message).toContain("Google idToken is required");
+    });
+  });
 });

@@ -1,31 +1,32 @@
-# Initialize
+# Prisma Commands
+### Initialize
 npx prisma init
 
-# Create migration
+### Create migration
 npx prisma migrate dev --name init
 
-# Generate client
+### Generate client
 npx prisma generate
 
-# Open GUI
+### Open GUI
 npx prisma studio
 
-# Reset database
+### Reset database
 npx prisma migrate reset
 
-# Production migrations
+### Production migrations
 npx prisma migrate deploy
 
-# Pull existing schema
+### Pull existing schema
 npx prisma db pull
 
-# Push schema without migration
+### Push schema without migration
 npx prisma db push
 
-# Prima seed command
+### Prima seed command
 npx prisma db seed
 
-# Useful npm Scripts
+### Useful npm Scripts
 {
   "scripts": {
     "prisma:init": "prisma init",
@@ -47,19 +48,26 @@ npx prisma db seed
 
 
 
-## PostgreSQL Commands
+# PostgreSQL Commands
 
-# PostgreSQL mein login
+### PostgreSQL mein login
 psql -U postgres
 
-# Agar password hai to:
-# psql -U postgres -W
+### psql -U postgres -W
+ Agar password hai to:
 
-# Database create karo
-CREATE DATABASE media_vault_test;
+### CREATE DATABASE media_vault_test;
+ Database create karo
 
-# Check karo
-\l
+### \l
+Check karo
 
-# Exit
-\q
+### \q
+Exit
+
+
+
+# Jest Commands
+
+### npm test -- AuthValidationTest.js
+To run specfic test file

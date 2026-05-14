@@ -1,8 +1,5 @@
 import dotenv from "dotenv";
 
-// Set default NODE_ENV to 'test' When Testing
-process.env.NODE_ENV = 'test';
-
 // Load .env.test file
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env', override: true  });
 

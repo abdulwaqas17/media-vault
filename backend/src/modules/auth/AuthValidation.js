@@ -9,21 +9,26 @@ export const SignupSchema = Joi.object({
     .max(30)
     .required()
     .messages({
+      "any.required": "Full name is required",
       "string.empty": "Full name is required",
       "string.min": "Full name should have at least 3 characters",
       "string.max": "Full name should have maximum 30 characters",
     }),
+
   email: Joi.string()
     .email()
     .required()
     .messages({
+      "any.required": "Email is required",
       "string.empty": "Email is required",
       "string.email": "Email must be valid",
     }),
+
   password: Joi.string()
     .min(6)
     .required()
     .messages({
+      "any.required": "Password is required",
       "string.empty": "Password is required",
       "string.min": "Password should be at least 6 characters",
     }),
@@ -45,14 +50,14 @@ export const GoogleAuthSchema = Joi.object({
  */
 export const LoginSchema = Joi.object({
   email: Joi.string().email().required().messages({
-    "string.email": "Email must be valid",
-    "string.empty": "Email is required",
     "any.required": "Email is required",
+    "string.empty": "Email is required",
+    "string.email": "Email must be valid",
   }),
 
   password: Joi.string().min(6).required().messages({
+    "any.required": "Password is required",
     "string.empty": "Password is required",
     "string.min": "Password should be at least 6 characters",
-    "any.required": "Password is required",
   }),
 });
