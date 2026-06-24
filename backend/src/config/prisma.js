@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import env from "./env.js";
 
+console.log("prisma ===========>",env.DATABASE_URL); 
+
 const prisma = new PrismaClient({
-  datasourceUrl: "postgresql://postgres:W@qa$@localhost:5432/media_vault_test",
+  datasourceUrl: env.DATABASE_URL,
 });
 
 export default prisma;

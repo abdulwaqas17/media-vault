@@ -36,7 +36,7 @@ const conditionalValidation = (req, res, next) => {
  */
 router.post(
   "/media-assets/presigned-url",
-  // AuthMiddleware,
+  AuthMiddleware,
   conditionalUpload,
   conditionalValidation,
   ProfileController.PresignedUrlController,

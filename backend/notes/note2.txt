@@ -1,4 +1,8 @@
-Output ==>
+OUTPUTS :-
+
+
+Outputs of Backend:
+
 proper error logs ✅
 swagger for api doc ✅
 s3,cdn ✅
@@ -9,15 +13,30 @@ cron job for old sessions delete ✅
 unit testing
 deployement on ec2
 
+
+Outputs of Frontend:
+
 Use rtk or redux
 Debounce search
 Bottom scroll api call
 Hooks
 React Query
+React 19
+token store on context/state/cookie
+
+
+
+
+
+
+
+
+
+
+
 
 
 Todos :-
-
 frontend
 
 

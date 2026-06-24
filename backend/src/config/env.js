@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env', override: true  });
 
 console.log("Load .env file ==========>",process.env.NODE_ENV);
-console.log("Load ===========>",process.env.DATABASE_URL);
+console.log("Load ===========>",process.env.DATABASE_URL); 
 
 
  const env = {
