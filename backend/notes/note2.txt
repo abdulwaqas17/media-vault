@@ -12,6 +12,8 @@ code speed and reuseability
 cron job for old sessions delete ✅
 unit testing
 deployement on ec2
+In future : Integration test, e2e test
+
 
 
 Outputs of Frontend:
@@ -36,11 +38,7 @@ token store on context/state/cookie
 
 
 
-Todos :-
-frontend
 
+PROGRESS:-
 
-
-
-
-
+24-06-25: review code, jest review remaining

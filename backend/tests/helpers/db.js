@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-
+import env from '../../src/config/env.js';
 // Ensure we're in test environment
 if (env.NODE_ENV !== "test") {
   console.log('==================env.NODE_ENV at db.js==================');
@@ -12,7 +12,7 @@ if (env.NODE_ENV !== "test") {
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL
+      url: env.DATABASE_URL
     }
   }
 });
