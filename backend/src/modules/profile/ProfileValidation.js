@@ -64,5 +64,23 @@ export const UpdateProfileSchema = Joi.object({
       cdn_url: Joi.string().required(),
       mime_type: Joi.string().required(),
     })
-  ).optional()
+  ).length(2)
+  .required()
+  .custom((value, helpers) => {
+    const assetTypes = value.map(asset => asset.asset_type);
+
+    if (!assetTypes.includes(ImageType.Profile_Picture)) {
+      return helpers.message("profile picture is required");
+    }
+
+    if (!assetTypes.includes(ImageType.Company_Logo)) {
+      return helpers.message("company logo is required");
+    }
+
+    return value;
+  })
+  .messages({
+    "any.required": "media_assets is required",
+    "array.length": "media_assets must contain exactly 2 items"
+  })
 });

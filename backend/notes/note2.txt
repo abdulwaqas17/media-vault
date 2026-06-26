@@ -41,4 +41,5 @@ token store on context/state/cookie
 
 PROGRESS:-
 
-24-06-25: review code, jest review remaining
+24-06-26: review code, jest review remaining
+25-06-26: validation test done only profile validation test remaining

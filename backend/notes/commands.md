@@ -69,5 +69,8 @@ Exit
 
 # Jest Commands
 
-### npm test -- AuthValidationTest.js
-To run specfic test file
+### To run specfic test file
+npm test -- AuthValidationTest.js
+
+### To run specfic Function in a test file
+npm test -- AuthValidationTest.js -t SignupSchema
