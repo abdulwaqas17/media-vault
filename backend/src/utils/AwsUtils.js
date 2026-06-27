@@ -35,7 +35,9 @@ export const BulkDeleteFromS3 = async (s3Keys) => {
     });
 
     await s3.send(deleteCmd);
-    console.log(`Deleted ${s3Keys.length} objects from S3 ++++++++++++++++++++++++`);
+    console.log(
+      `Deleted ${s3Keys.length} objects from S3 ++++++++++++++++++++++++`,
+    );
   } catch (err) {
     console.error("Failed to bulk delete from S3:", err);
     throw new ApiError(500, "Failed to delete media assets from S3");
@@ -84,7 +86,9 @@ export const BulkInvalidateCloudFront = async (s3Keys) => {
         },
       });
       await cloudFront.send(invalidationCmd);
-      console.log(`CloudFront bulk cache invalidated for ${s3Keys.length} items ++++++++++++++++++++++++`);
+      console.log(
+        `CloudFront bulk cache invalidated for ${s3Keys.length} items ++++++++++++++++++++++++`,
+      );
     }
   } catch (err) {
     console.error("Failed to bulk invalidate CloudFront cache:", err);

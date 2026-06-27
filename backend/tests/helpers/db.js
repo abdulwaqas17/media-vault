@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client';
 import env from '../../src/config/env.js';
 // Ensure we're in test environment
 if (env.NODE_ENV !== "test") {
-  console.log('==================env.NODE_ENV at db.js==================');
-  console.log(env.NODE_ENV);
-  console.log('==================env.NODE_ENV at db.js==================');
+  // console.log('==================env.NODE_ENV at db.js==================');
+  // console.log(env.NODE_ENV);
+  // console.log('==================env.NODE_ENV at db.js==================');
   throw new Error("Tests must run with NODE_ENV=test");
 }
 
