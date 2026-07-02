@@ -3,7 +3,7 @@ import { SendResponse } from "../../../src/utils/ApiResponse.js";
 
 describe("ApiResponse", () => {
   
-  // Mock Express response object
+  // Mock/Fake Express response object
   let mockRes;
 
   beforeEach(() => {

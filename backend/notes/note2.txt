@@ -43,3 +43,6 @@ PROGRESS:-
 
 24-06-26: review code, jest review remaining
 25-06-26: validation test done only profile validation test remaining
+26-06-26: profile validation test done
+27-06-26: utils testing start and api error and response test done
+02-07-26: research about jest/Integration test utils validation continue
