@@ -656,5 +656,5 @@ export const SendResponse = (
   });
 };
 
-smart testing krna jis trhn industry m kam hota h
+smart testing krna jis trhn industry m kam hota h, sirf wohi test likhna jis ki need hon
 write well commented code and do not use emojis
