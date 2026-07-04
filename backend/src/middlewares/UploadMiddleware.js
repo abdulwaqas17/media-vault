@@ -1,7 +1,6 @@
 import multer from "multer";
 import path from "path";
-import fs from "fs";
-
+import * as fs from "fs";
 // Ensure uploads directory exists
 const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
@@ -9,7 +8,7 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // Multer configuration for disk storage and file name create
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir);
   },
@@ -22,7 +21,7 @@ const storage = multer.diskStorage({
 
 
 // File filter to allow only image files
-const fileFilter = (req, file, cb) => {
+export const fileFilter = (req, file, cb) => {
   // Accept images only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
     return cb(new Error("Only image files are allowed!"), false);
