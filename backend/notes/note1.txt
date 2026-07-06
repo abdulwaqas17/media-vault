@@ -633,38 +633,49 @@ and also why we write (req, res, next); this after return function above
 
 ===========================================================================================
 
+kia is k lien test ikhna chaie? 
+aur konsa test likhna chahie ?
+
+
+in m se Kon se functions k lien kon kon sea test likhna chie uni ki short description ki list do k m kia kia test krun is m se!
+smart testing krna chata hon jis trhn industry m kam hota h, sirf wohi test likhna jis ki need hon!
+
+
 ab is ka unit test likh kr do, ager need h to warna nhe likhna
 
-import { ApiError } from "../utils/ApiError.js";
-import { SanitizeObject } from "../utils/sanitizer.js";
+import cron from "node-cron";
+import logger from "../config/logger.js";
+import { DeleteExpiredSessions } from "../utils/CronJobUtils.js";
 
 /**
- * Middleware to validate AND sanitize request data using Joi schemas
- * Validation happens first, then sanitization
+ * Session cleanup cron jobs
+ * Industry standard scheduling
  */
-export const ValidateAndSanitize = (schema, property = "body") => {
-  return (req, res, next) => {
-    // Step 1: Validate first
-    const validationResult = schema.validate(req[property], {
-      abortEarly: false, // show all validation errors, not just the first one
-      stripUnknown: true, // remove unknown fields that are not defined in the schema
-    });
-    
-    const { error, value } = validationResult;
 
-    if (error) {
-      return next(new ApiError(400, error.details[0].message));
+// Job 1: Run every hour to delete expired sessions
+// Cron pattern: "0 * * * *" = At minute 0 of every hour
+export const ScheduleExpiredSessionCleanup = () => {
+  cron.schedule("0 * * * *", async () => {
+    logger.info("Cron Job Started: Deleting expired sessions");
+    const startTime = Date.now();
+
+    try {
+      const deletedCount = await DeleteExpiredSessions();
+      const duration = (Date.now() - startTime)/1000; // Convert ms to seconds
+
+      logger.info(
+        `Cron Job Completed: Deleted ${deletedCount} sessions in ${duration} seconds`,
+      );
+    } catch (error) {
+      logger.error("Cron Job Failed: Session cleanup error", error);
     }
+  });
 
-    // Step 2: Sanitize the validated data
-    const sanitizedData = SanitizeObject(value);
-
-    // Step 3: Replace request property with sanitized data
-    req[property] = sanitizedData;
-    
-    next();
-  };
+  logger.info(
+    "Cron Job Scheduled: Expired session cleanup will run every hour",
+  );
 };
+
 
 static message verify nhe krna
 aur kam test likhna

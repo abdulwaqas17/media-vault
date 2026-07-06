@@ -277,7 +277,7 @@ export const LoginService = async ({
 export const RefreshTokenService = async ({ accessToken, refreshToken }) => {
   //  Decode access token
   let decoded = jwt.decode(accessToken);
-  if (!decoded?.sessionId) throw new ApiError("Invalid access token");
+  if (!decoded?.sessionId) throw new ApiError(401,"Invalid access token");
 
   console.log("Decoded access token: ", decoded);
 
