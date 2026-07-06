@@ -1,213 +1,94 @@
-// // tests/unit/middlewares/UploadMiddlewareTest.js
+import { jest } from "@jest/globals";
 
-// import { jest } from "@jest/globals";
+// ------------------------------------------------------------
+// Mock multer
+// ------------------------------------------------------------
+jest.unstable_mockModule("multer", () => {
+  const diskStorage = jest.fn((options) => options);
+  const memoryStorage = jest.fn(() => ({}));
 
-// // Mock fs - simple
-// jest.unstable_mockModule("fs", () => ({
-//   existsSync: jest.fn().mockReturnValue(true),
-//   mkdirSync: jest.fn()
-// }));
+  const multer = jest.fn(() => ({}));
 
-// // Mock multer - WITH diskStorage and memoryStorage
-// jest.unstable_mockModule("multer", () => {
-//   const diskStorage = jest.fn().mockImplementation((config) => ({
-//     destination: config.destination,
-//     filename: config.filename
-//   }));
-  
-//   const memoryStorage = jest.fn().mockReturnValue({});
-  
-//   const multerFn = jest.fn().mockImplementation((config) => ({
-//     single: jest.fn(),
-//     array: jest.fn(),
-//     fields: jest.fn()
-//   }));
-  
-//   multerFn.diskStorage = diskStorage;
-//   multerFn.memoryStorage = memoryStorage;
-  
-//   return {
-//     default: multerFn
-//   };
-// });
+  multer.diskStorage = diskStorage;
+  multer.memoryStorage = memoryStorage;
 
-// // Dynamic imports
-// const multer = (await import("multer")).default;
-// const { 
-//   UploadMiddleware, 
-//   UploadMemoryMiddleware,
-//   fileFilter,
-//   storage
-// } = await import("../../../src/middlewares/UploadMiddleware.js");
+  return {
+    default: multer,
+  };
+});
 
-// describe("UploadMiddleware", () => {
-//   beforeEach(() => {
-//     jest.clearAllMocks();
-//   });
+// ------------------------------------------------------------
+// Mock fs
+// ------------------------------------------------------------
+jest.unstable_mockModule("fs", () => ({
+  existsSync: jest.fn(() => true),
+  mkdirSync: jest.fn(),
+}));
 
-//   // ============================================================
-//   // TEST 1: fileFilter - Accept valid image files
-//   // ============================================================
-//   describe("fileFilter", () => {
-//     it("should accept valid image files", () => {
-//       const mockReq = {};
-//       const mockCb = jest.fn();
-      
-//       const validFiles = [
-//         { originalname: "photo.jpg" },
-//         { originalname: "image.jpeg" },
-//         { originalname: "picture.png" },
-//         { originalname: "graphic.gif" },
-//         { originalname: "logo.webp" },
-//         { originalname: "photo.JPG" },
-//         { originalname: "image.JPEG" }
-//       ];
+// ------------------------------------------------------------
+// Imports
+// ------------------------------------------------------------
+const { fileFilter, storage } = await import(
+  "../../../src/middlewares/UploadMiddleware.js"
+);
 
-//       validFiles.forEach((file) => {
-//         fileFilter(mockReq, file, mockCb);
-//         expect(mockCb).toHaveBeenCalledWith(null, true);
-//         mockCb.mockClear();
-//       });
-//     });
+describe("UploadMiddleware", () => {
+  // ============================================================
+  // FILE FILTER
+  // ============================================================
 
-//     it("should reject non-image files", () => {
-//       const mockReq = {};
-//       const mockCb = jest.fn();
-      
-//       const invalidFiles = [
-//         { originalname: "document.pdf" },
-//         { originalname: "file.txt" },
-//         { originalname: "video.mp4" },
-//         { originalname: "script.js" }
-//       ];
+  it("should accept supported image extensions", () => {
+    const cb = jest.fn();
 
-//       invalidFiles.forEach((file) => {
-//         fileFilter(mockReq, file, mockCb);
-//         expect(mockCb).toHaveBeenCalledWith(
-//           expect.any(Error),
-//           false
-//         );
-//         mockCb.mockClear();
-//       });
-//     });
-//   });
+    fileFilter(
+      {},
+      { originalname: "photo.jpg" },
+      cb
+    );
 
-//   // ============================================================
-//   // TEST 2: storage - destination function
-//   // ============================================================
-//   describe("storage destination", () => {
-//     it("should call callback with upload directory", () => {
-//       const mockCb = jest.fn();
-//       const mockReq = {};
-//       const mockFile = {};
-      
-//       // Get destination function from storage
-//       const destinationFn = storage.destination;
-//       destinationFn(mockReq, mockFile, mockCb);
-      
-//       expect(mockCb).toHaveBeenCalledWith(null, expect.stringContaining("uploads"));
-//     });
-//   });
+    expect(cb).toHaveBeenCalledWith(null, true);
+  });
 
-//   // ============================================================
-//   // TEST 3: storage - filename function
-//   // ============================================================
-//   describe("storage filename", () => {
-//     it("should generate unique filename with extension", () => {
-//       const mockCb = jest.fn();
-//       const mockReq = {};
-//       const mockFile = { originalname: "test.jpg" };
-      
-//       const filenameFn = storage.filename;
-//       filenameFn(mockReq, mockFile, mockCb);
-      
-//       expect(mockCb).toHaveBeenCalledWith(
-//         null,
-//         expect.stringMatching(/^\d+-\d+\.jpg$/)
-//       );
-//     });
+  it("should reject unsupported file extensions", () => {
+    const cb = jest.fn();
 
-//     it("should preserve file extension", () => {
-//       const mockCb = jest.fn();
-//       const mockReq = {};
-//       const mockFile = { originalname: "photo.png" };
-      
-//       const filenameFn = storage.filename;
-//       filenameFn(mockReq, mockFile, mockCb);
-      
-//       expect(mockCb).toHaveBeenCalledWith(
-//         null,
-//         expect.stringMatching(/\.png$/)
-//       );
-//     });
+    fileFilter(
+      {},
+      { originalname: "document.pdf" },
+      cb
+    );
 
-//     it("should handle different file extensions", () => {
-//       const mockCb = jest.fn();
-//       const mockReq = {};
-      
-//       const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-      
-//       extensions.forEach((ext) => {
-//         const mockFile = { originalname: `test.${ext}` };
-//         const filenameFn = storage.filename;
-//         filenameFn(mockReq, mockFile, mockCb);
-        
-//         expect(mockCb).toHaveBeenCalledWith(
-//           null,
-//           expect.stringMatching(new RegExp(`\\.${ext}$`))
-//         );
-//         mockCb.mockClear();
-//       });
-//     });
-//   });
+    expect(cb).toHaveBeenCalledWith(expect.any(Error), false);
+  });
 
-//   // ============================================================
-//   // TEST 4: UploadMiddleware - Configuration
-//   // ============================================================
-//   describe("UploadMiddleware", () => {
-//     it("should be configured with storage, fileFilter, and limits", () => {
-//       // Check that multer was called with correct config
-//       expect(multer).toHaveBeenCalled();
-      
-//       const callArgs = multer.mock.calls[0][0];
-//       expect(callArgs).toMatchObject({
-//         limits: { fileSize: 5 * 1024 * 1024 }
-//       });
-//       expect(callArgs.storage).toBeDefined();
-//       expect(callArgs.fileFilter).toBeDefined();
-//     });
+  // ============================================================
+  // STORAGE
+  // ============================================================
 
-//     it("should have single, array, and fields methods", () => {
-//       expect(UploadMiddleware.single).toBeDefined();
-//       expect(UploadMiddleware.array).toBeDefined();
-//       expect(UploadMiddleware.fields).toBeDefined();
-//     });
-//   });
+  it("should preserve original file extension when generating filename", () => {
+    const cb = jest.fn();
 
-//   // ============================================================
-//   // TEST 5: UploadMemoryMiddleware - Configuration
-//   // ============================================================
-//   describe("UploadMemoryMiddleware", () => {
-//     it("should be configured with memory storage", () => {
-//       expect(UploadMemoryMiddleware).toBeDefined();
-//       expect(UploadMemoryMiddleware.single).toBeDefined();
-//       expect(UploadMemoryMiddleware.array).toBeDefined();
-//       expect(UploadMemoryMiddleware.fields).toBeDefined();
-//     });
+    storage.filename(
+      {},
+      { originalname: "avatar.png" },
+      cb
+    );
 
-//     it("should have fileFilter and limits", () => {
-//       // Check multer was called at least twice (for disk and memory)
-//       expect(multer).toHaveBeenCalled();
-      
-//       // Get all calls
-//       const allCalls = multer.mock.calls;
-//       // At least one call should have memory storage
-//       const hasMemoryStorage = allCalls.some((call) => {
-//         const config = call[0];
-//         return config && config.storage && config.limits;
-//       });
-      
-//       expect(hasMemoryStorage).toBe(true);
-//     });
-//   });
-// });
+    const generatedName = cb.mock.calls[0][1];
+
+    expect(generatedName.endsWith(".png")).toBe(true);
+  });
+
+  it("should generate unique filenames", () => {
+    const cb1 = jest.fn();
+    const cb2 = jest.fn();
+
+    storage.filename({}, { originalname: "a.jpg" }, cb1);
+    storage.filename({}, { originalname: "a.jpg" }, cb2);
+
+    const first = cb1.mock.calls[0][1];
+    const second = cb2.mock.calls[0][1];
+
+    expect(first).not.toBe(second);
+  });
+});

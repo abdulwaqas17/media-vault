@@ -47,3 +47,4 @@ PROGRESS:-
 27-06-26: utils testing start and api error and response test done
 02-07-26: research about jest/Integration test utils validation continue
 03-07-26: only rate limit, cron utils remaining
+04-07-26: middlewares unit test continue
