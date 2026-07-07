@@ -33,7 +33,7 @@ export const DeleteUserController = async (req, res, next) => {
     const { userId } = req.params;
 
     // Call service to handle full deletion
-    await AdminService.DeleteUserService(userId);
+    await AdminService.DeleteUserService(userId,req);
 
     return SendResponse(res, 200, "User deleted successfully");
   } catch (error) {

@@ -14,7 +14,6 @@ jest.unstable_mockModule("../../../src/config/prisma.js", () => ({
   }
 }));
 
-
 // Mock SessionUtils
 jest.unstable_mockModule("../../../src/utils/SessionUtils.js", () => ({
   ExpireUserSessions: jest.fn()

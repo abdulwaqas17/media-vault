@@ -61,7 +61,7 @@ export const ToggleUserStatusService = async (userId) => {
  *
  * @param {string} userId
  */
-export const DeleteUserService = async (userId) => {
+export const DeleteUserService = async (userId,req) => {
 
   if (req.user.userId === userId) {
     throw new ApiError(400, "User cannot delete Admin Account");
