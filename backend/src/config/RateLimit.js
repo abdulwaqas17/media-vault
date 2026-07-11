@@ -20,7 +20,7 @@ handler: RateLimitHandler(),
 // Auth routes ke liye strict limiter
 export const AuthRateLimiter = rateLimit({
   windowMs:  60 * 10 * 1000, // 10 minutes
-  max: 10, // Sirf 10 attempts
+  max: 50, // Sirf 10 attempts
   
   standardHeaders: true,
   legacyHeaders: false,
