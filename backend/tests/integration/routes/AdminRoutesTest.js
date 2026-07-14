@@ -5,6 +5,14 @@ import request from "supertest";
 // STEP 1: Mock All Dependencies FIRST
 // ============================================================
 
+// Mock AuthMiddleware - CRITICAL FIX
+jest.unstable_mockModule("../../../src/middlewares/AuthMiddleware.js", () => ({
+  AuthMiddleware: jest.fn((req, res, next) => {
+    req.user = { userId: "admin_123", sessionId: "session_123" };
+    next();
+  })
+}));
+
 // Mock AdminService
 jest.unstable_mockModule("../../../src/modules/admin/AdminService.js", () => ({
   ToggleUserStatusService: jest.fn(),
@@ -21,10 +29,71 @@ jest.unstable_mockModule("../../../src/middlewares/RoleMiddleware.js", () => ({
   })
 }));
 
+// Mock prisma
+jest.unstable_mockModule("../../../src/config/prisma.js", () => ({
+  default: {
+    users: {
+      findUnique: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn()
+    },
+    sessions: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      update: jest.fn(),
+      deleteMany: jest.fn()
+    },
+    profiles: {
+      upsert: jest.fn()
+    },
+    media_assets: {
+      findMany: jest.fn(),
+      deleteMany: jest.fn(),
+      create: jest.fn()
+    },
+    roles: {
+      findUnique: jest.fn()
+    },
+    $transaction: jest.fn()
+  }
+}));
 
+// Mock logger
+jest.unstable_mockModule("../../../src/config/logger.js", () => ({
+  default: {
+    info: jest.fn(),
+    error: jest.fn(),
+    warn: jest.fn()
+  }
+}));
 
-// Mock constants
-import { ROLES } from "../../../src/constants/constants.js";
+// Mock AWS
+jest.unstable_mockModule("../../../src/config/Aws.js", () => ({
+  s3: {
+    send: jest.fn()
+  },
+  cloudFront: {
+    send: jest.fn()
+  }
+}));
+
+// Mock SessionUtils
+jest.unstable_mockModule("../../../src/utils/SessionUtils.js", () => ({
+  ExpireUserSessions: jest.fn()
+}));
+
+// Mock AwsUtils
+jest.unstable_mockModule("../../../src/utils/AwsUtils.js", () => ({
+  DeleteFromS3: jest.fn(),
+  BulkDeleteFromS3: jest.fn(),
+  InvalidateCloudFront: jest.fn(),
+  BulkInvalidateCloudFront: jest.fn()
+}));
+
+// Mock cron job
+jest.unstable_mockModule("../../../src/jobs/SessionsCleanupJob.js", () => ({
+  ScheduleExpiredSessionCleanup: jest.fn()
+}));
 
 // ============================================================
 // STEP 2: Import App DYNAMICALLY after mocks
@@ -67,7 +136,6 @@ describe("Admin Routes - Integration Tests", () => {
   describe("PATCH /api/admin/users/:userId/deactivate", () => {
     const toggleEndpoint = `${BASE_URL}/users/${mockUserId}/deactivate`;
 
-    // Test 1: Success
     it("should toggle user status successfully", async () => {
       ToggleUserStatusService.mockResolvedValue(mockUpdatedUser);
 
@@ -87,7 +155,6 @@ describe("Admin Routes - Integration Tests", () => {
       expect(ToggleUserStatusService).toHaveBeenCalledWith(mockUserId);
     });
 
-    // Test 4: Service error - User not found
     it("should return 404 when user does not exist", async () => {
       ToggleUserStatusService.mockRejectedValue(mockErrors.userNotFound);
 
@@ -109,7 +176,6 @@ describe("Admin Routes - Integration Tests", () => {
   describe("DELETE /api/admin/users/:userId", () => {
     const deleteEndpoint = `${BASE_URL}/users/${mockUserId}`;
 
-    // Test 1: Success
     it("should delete user successfully", async () => {
       DeleteUserService.mockResolvedValue();
 
@@ -125,7 +191,6 @@ describe("Admin Routes - Integration Tests", () => {
       expect(DeleteUserService).toHaveBeenCalledWith(mockUserId, expect.any(Object));
     });
 
-    // Test 4: Service error - User not found
     it("should return 404 when user does not exist", async () => {
       DeleteUserService.mockRejectedValue(mockErrors.userNotFound);
 
@@ -139,7 +204,6 @@ describe("Admin Routes - Integration Tests", () => {
       });
     });
 
-    // Test 5: Admin trying to delete themselves
     it("should return 400 when admin tries to delete themselves", async () => {
       DeleteUserService.mockRejectedValue(mockErrors.adminSelfDelete);
 

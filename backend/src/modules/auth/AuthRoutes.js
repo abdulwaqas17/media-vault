@@ -27,7 +27,7 @@ router.post(
 );
 
 /**
- * Login route
+ * ain route
  */
 router.post(
   "/login",
