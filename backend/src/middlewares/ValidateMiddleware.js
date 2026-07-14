@@ -23,8 +23,11 @@ export const ValidateAndSanitize = (schema, property = "body") => {
     const sanitizedData = SanitizeObject(value);
 
     // Step 3: Replace request property with sanitized data
-    req[property] = sanitizedData;
-    
+if (property === "query") {
+  Object.assign(req.query, sanitizedData);
+} else {
+  req[property] = sanitizedData;
+}    
     next();
   };
 };
